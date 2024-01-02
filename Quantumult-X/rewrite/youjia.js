@@ -1,5 +1,12 @@
-const params = getParams($argument);
-const provinceName = params.provname || "湖南";
+let provname;
+if (typeof $argument !== "undefined") {
+    provname = $argument;
+} else {
+
+    provname = "湖南";//quantumultx用户请复制到本地脚本 更改其他省 省份名不能含"省"字。小火箭loon用户请看模块插件注释 surge请用面板
+}
+//默认湖南油价
+const encodedprovname = encodeURIComponent(provname);
 const apiUrls = [
     `https://apis.tianapi.com/oilprice/index?key=231de491563c35731436829ac52aad43&prov=${encodeURIComponent(provinceName)}`,
     `https://apis.tianapi.com/oilprice/index?key=a2bc7a0e01be908881ff752677cf94b7&prov=${encodeURIComponent(provinceName)}`,
