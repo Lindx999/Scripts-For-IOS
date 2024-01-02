@@ -2,7 +2,7 @@
 [task_local]
 0 0 8 ? * * https://raw.githubusercontent.com/Lindx999/Scripts-For-IOS/main/Quantumult-X/rewrite/oil.js, tag=每日油价, enabled=true
 */
-const apiurl = "https://apis.tianapi.com/oilprice/index?key=d718b0f7c2b6d71cb3a9814e90bf847f&prov=广东";
+const apiurl = "https://apis.tianapi.com/oilprice/index?key=d718b0f7c2b6d71cb3a9814e90bf847f&prov=%E5%B9%BF%E4%B8%9C";
 
 $task.fetch({ url: apiurl }).then(response => {
     var obj = JSON.parse(response.body);
