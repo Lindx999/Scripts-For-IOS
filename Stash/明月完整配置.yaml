@@ -1,0 +1,1770 @@
+mixed-port: 7890
+allow-lan: true
+bind-address: '*'
+mode: rule
+log-level: silent
+ipv6: true
+http:
+  # 强制使用 HTTP 引擎处理 TCP 连接
+  # 捕获后的连接可以使用高级功能，例如重写和脚本
+  force-http-engine:
+    - '*:4480' # BiliBili CDN
+    - '*:9102' # BiliBili CDN
+#请不要更改其他配置，会导致无法运行
+#以下两条为订阅连接粘贴网址https ⚠️
+#以下两条为订阅连接粘贴网址https ⚠️
+#以下两条为订阅连接粘贴网址https ⚠️
+external-controller: 127.0.0.1:9090
+subscribe-url: 代理连接请填到远程代理集
+#首页按住订阅可手动更新流量信息及日期信息(自带定时更新)⚠️⚠️⚠️⚠️⚠️
+proxy-providers:
+  明月配置: #替换下面⚠️订阅链接⚠️用于Stash更新节点服务器
+    type: http
+    url: "订阅链接"
+    #替换上面⚠️订阅链接⚠️用于Stash更新节点服务器
+    # Sub-Store与Clash类型订阅链接替换掉引号""内的订阅链接
+    interval: 86400
+    path: ./明月配置.yaml
+    health-check:
+      enable: true
+      interval: 300
+      url: https://www.gstatic.com/generate_204
+    benchmark-url: https://www.gstatic.com/generate_204
+    filter: (?=.*())^((?!(群|x2|x3|x5|x10|x15|x20|x25|x30|x50|期|临|回|招|建议|防|禁止|推|TG|倍|试|佣金|节点|延迟|官网|🚧|🎣)).)*$
+    benchmark-timeout: 5
+dns:
+  enable: true
+  ipv6: true
+  listen: 0.0.0.0:53
+  default-nameserver:
+    - 223.5.5.5
+    - 119.29.29.29
+  nameserver:
+    - system
+  # 跳过证书验证，解决部分兼容性问题 https://help.nextdns.io/t/g9hdkjz
+  skip-cert-verify: true
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  fake-ip-filter:
+    - '*.lan'
+    - '*.localdomain'
+    - '*.example'
+    - '*.invalid'
+    - '*.localhost'
+    - '*.test'
+    - '*.local'
+    - '*.home.arpa'
+    - time.*.com
+    - time.*.gov
+    - time.*.edu.cn
+    - time.*.apple.com
+    - time-ios.apple.com
+    - time1.*.com
+    - time2.*.com
+    - time3.*.com
+    - time4.*.com
+    - time5.*.com
+    - time6.*.com
+    - time7.*.com
+    - ntp.*.com
+    - ntp1.*.com
+    - ntp2.*.com
+    - ntp3.*.com
+    - ntp4.*.com
+    - ntp5.*.com
+    - ntp6.*.com
+    - ntp7.*.com
+    - '*.time.edu.cn'
+    - '*.ntp.org.cn'
+    - +.pool.ntp.org
+    - time1.cloud.tencent.com
+    - music.163.com
+    - '*.music.163.com'
+    - '*.126.net'
+    - musicapi.taihe.com
+    - music.taihe.com
+    - songsearch.kugou.com
+    - trackercdn.kugou.com
+    - '*.kuwo.cn'
+    - api-jooxtt.sanook.com
+    - api.joox.com
+    - joox.com
+    - y.qq.com
+    - '*.y.qq.com'
+    - streamoc.music.tc.qq.com
+    - mobileoc.music.tc.qq.com
+    - isure.stream.qqmusic.qq.com
+    - dl.stream.qqmusic.qq.com
+    - aqqmusic.tc.qq.com
+    - amobile.music.tc.qq.com
+    - '*.xiami.com'
+    - '*.music.migu.cn'
+    - music.migu.cn
+    - +.msftconnecttest.com
+    - +.msftncsi.com
+    - localhost.ptlogin2.qq.com
+    - localhost.sec.qq.com
+    - +.qq.com
+    - +.tencent.com
+    - +.srv.nintendo.net
+    - '*.n.n.srv.nintendo.net'
+    - +.stun.playstation.net
+    - xbox.*.*.microsoft.com
+    - '*.*.xboxlive.com'
+    - xbox.*.microsoft.com
+    - xnotify.xboxlive.com
+    - +.battlenet.com.cn
+    - +.wotgame.cn
+    - +.wggames.cn
+    - +.wowsgame.cn
+    - +.wargaming.net
+    - proxy.golang.org
+    - stun.*.*
+    - stun.*.*.*
+    - +.stun.*.*
+    - +.stun.*.*.*
+    - +.stun.*.*.*.*
+    - +.stun.*.*.*.*.*
+    - heartbeat.belkin.com
+    - '*.linksys.com'
+    - '*.linksyssmartwifi.com'
+    - '*.router.asus.com'
+    - mesu.apple.com
+    - swscan.apple.com
+    - swquery.apple.com
+    - swdownload.apple.com
+    - swcdn.apple.com
+    - swdist.apple.com
+    - lens.l.google.com
+    - stun.l.google.com
+    - na.b.g-tun.com
+    - +.nflxvideo.net
+    - '*.square-enix.com'
+    - '*.finalfantasyxiv.com'
+    - '*.ffxiv.com'
+    - '*.ff14.sdo.com'
+    - ff.dorado.sdo.com
+    - '*.mcdn.bilivideo.cn'
+    - +.media.dssott.com
+    - shark007.net
+    - Mijia Cloud
+    - +.cmbchina.com
+    - +.cmbimg.com
+    - local.adguard.org
+    - +.sandai.net
+    - +.n0808.com
+  from: https://github.com/Kr328/ClashForAndroid/blob/ffa559a57102ed8bc20eba41aa236a7764741bf9/core/src/main/golang/native/config/defaults.go#L10
+proxy-groups:
+  - name: "🔝自动选择（⬅️自动手动没有规则）"
+    type: url-test
+    include-all: null
+    filter: '(?=.*())^((?!(群|x2|x3|x5|x10|x15|x20|x25|x30|x50|期|临|回|招|建议|防|禁止|推|TG|倍|试|佣金|节点|延迟|官网|🚧|🎣)).)*$'
+    url: "https://www.gstatic.com/generate_204"
+    interval: 300
+    lazy: true
+    use:
+      - 明月配置
+    tolerance: 150
+  - name: "🙌手动选择（⬇️下面列表选择分流）"
+    type: select
+    include-all: null
+    filter: '(?=.*())^((?!(流量|距离|群|x2|x3|x5|x10|x15|x20|x25|x30|x50|期|临|回|招|建议|防|禁止|推|TG|倍|试|佣金|节点|延迟|官网|🚧|🎣)).)*$'
+    interval: 300
+    lazy: true
+    use:
+      - 明月配置
+    proxies:
+      - 🔝自动选择（⬅️自动手动没有规则）
+      - ♻️故障转移
+  - name: 🌊漏网之鱼（🔄黑白名单模式）
+    proxies:
+      - 🇨🇳直接连接
+      - 💱国外网站
+      - 🇭🇰香港自动选择
+      - 🇸🇬狮城自动选择
+      - 🇯🇵日本自动选择
+      - 🇹🇼台湾自动选择
+      - 🇺🇸美国自动选择
+    type: select
+    filter: (?=.*())^((?!(流量|距离|群|x2|x3|x5|x10|x15|x20|x25|x30|x50|期|临|回|招|建议|防|禁止|推|TG|倍|试|佣金|节点|延迟|官网|🚧|🎣)).)*$
+  - name: "💱国外网站"
+    type: select
+    proxies:
+      - 🙌手动选择（⬇️下面列表选择分流）
+      - 🇭🇰香港自动选择
+      - 🇸🇬狮城自动选择
+      - 🇯🇵日本自动选择
+      - 🇹🇼台湾自动选择
+      - 🇺🇸美国自动选择
+      - 🇨🇳直接连接
+    include-all: null
+    use: null
+    filter: (?=.*())^((?!(流量|距离|群|x2|x3|x5|x10|x15|x20|x25|x30|x50|期|临|回|招|建议|防|禁止|推|TG|倍|试|佣金|节点|延迟|官网|🚧|🎣)).)*$
+    interval: 300
+    lazy: true
+  - name: "🍎苹果服务"
+    type: select
+    proxies:
+      - 🇨🇳直接连接
+      - 🙌手动选择（⬇️下面列表选择分流）
+      - 🇭🇰香港自动选择
+      - 🇸🇬狮城自动选择
+      - 🇯🇵日本自动选择
+      - 🇹🇼台湾自动选择
+      - 🇺🇸美国自动选择
+    filter: (?=.*())^((?!(流量|距离|群|x2|x3|x5|x10|x15|x20|x25|x30|x50|期|临|回|招|建议|防|禁止|推|TG|倍|试|佣金|节点|延迟|官网|🚧|🎣)).)*$
+    lazy: null
+    use: null
+    interval: null
+  - name: "📲Telegram"
+    type: select
+    proxies:
+      - 🙌手动选择（⬇️下面列表选择分流）
+      - 🇭🇰香港自动选择
+      - 🇸🇬狮城自动选择
+      - 🇯🇵日本自动选择
+      - 🇹🇼台湾自动选择
+      - 🇺🇸美国自动选择
+      - 🇨🇳直接连接
+    filter: (?=.*())^((?!(流量|距离|群|x2|x3|x5|x10|x15|x20|x25|x30|x50|期|临|回|招|建议|防|禁止|推|TG|倍|试|佣金|节点|延迟|官网|🚧|🎣)).)*$
+    lazy: true
+    interval: 300
+  - name: "🌍国际媒体"
+    type: select
+    proxies:
+      - 🇭🇰香港自动选择
+      - 🇸🇬狮城自动选择
+      - 🇯🇵日本自动选择
+      - 🇹🇼台湾自动选择
+      - 🇺🇸美国自动选择
+    filter: (?=.*())^((?!(流量|距离|群|x2|x3|x5|x10|x15|x20|x25|x30|x50|期|临|回|招|建议|防|禁止|推|TG|倍|试|佣金|节点|延迟|官网|🚧|🎣)).)*$
+    interval: 300
+    lazy: true
+    use:
+      - 明月配置
+  - name: "📹Youtube"
+    type: select
+    proxies:
+      - 🇭🇰香港自动选择
+      - 🇸🇬狮城自动选择
+      - 🇯🇵日本自动选择
+      - 🇹🇼台湾自动选择
+      - 🇺🇸美国自动选择
+    filter: (?=.*())^((?!(流量|距离|群|x2|x3|x5|x10|x15|x20|x25|x30|x50|期|临|回|招|建议|防|禁止|推|TG|倍|试|佣金|节点|延迟|官网|🚧|🎣)).)*$
+    interval: 300
+    lazy: true
+    use:
+      - 明月配置
+  - name: "🎞️奈飞"
+    type: select
+    proxies:
+      - 🇭🇰香港自动选择
+      - 🇸🇬狮城自动选择
+      - 🇯🇵日本自动选择
+      - 🇹🇼台湾自动选择
+      - 🇺🇸美国自动选择
+    filter: (?=.*())^((?!(流量|距离|群|x2|x3|x5|x10|x15|x20|x25|x30|x50|期|临|回|招|建议|防|禁止|推|TG|倍|试|佣金|节点|延迟|官网|🚧|🎣)).)*$
+    interval: 300
+    lazy: true
+    use:
+      - 明月配置
+  - name: "🎞️迪士尼"
+    type: select
+    proxies:
+      - 🇭🇰香港自动选择
+      - 🇸🇬狮城自动选择
+      - 🇯🇵日本自动选择
+      - 🇹🇼台湾自动选择
+      - 🇺🇸美国自动选择
+    filter: (?=.*())^((?!(流量|距离|群|x2|x3|x5|x10|x15|x20|x25|x30|x50|期|临|回|招|建议|防|禁止|推|TG|倍|试|佣金|节点|延迟|官网|🚧|🎣)).)*$
+    interval: 300
+    lazy: true
+    use:
+      - 明月配置
+  - name: "🤖OpenAI"
+    type: select
+    proxies:
+      - 🇭🇰香港自动选择
+      - 🇸🇬狮城自动选择
+      - 🇯🇵日本自动选择
+      - 🇹🇼台湾自动选择
+      - 🇺🇸美国自动选择
+    filter: (?=.*())^((?!(流量|距离|群|x2|x3|x5|x10|x15|x20|x25|x30|x50|期|临|回|招|建议|防|禁止|推|TG|倍|试|佣金|节点|延迟|官网|🚧|🎣)).)*$
+    interval: 300
+    lazy: true
+    use:
+      - 明月配置
+  - interval: 300
+    lazy: true
+    name: 🎮游戏平台
+    proxies:
+      - 💱国外网站
+      - 🙌手动选择（⬇️下面列表选择分流）
+      - 🇭🇰香港自动选择
+      - 🇸🇬狮城自动选择
+      - 🇯🇵日本自动选择
+      - 🇹🇼台湾自动选择
+      - 🇺🇸美国自动选择
+      - 🇨🇳直接连接
+    type: select
+    use: null
+    filter: (?=.*())^((?!(流量|距离|群|x2|x3|x5|x10|x15|x20|x25|x30|x50|期|临|回|招|建议|防|禁止|推|TG|倍|试|佣金|节点|延迟|官网|🚧|🎣)).)*$
+  - name: Ⓜ️微软服务
+    type: select
+    proxies:
+      - 🤖OpenAI
+      - 🙌手动选择（⬇️下面列表选择分流）
+      - 🇭🇰香港自动选择
+      - 🇸🇬狮城自动选择
+      - 🇯🇵日本自动选择
+      - 🇹🇼台湾自动选择
+      - 🇺🇸美国自动选择
+      - 🇨🇳直接连接
+    filter: (?=.*())^((?!(流量|距离|群|x2|x3|x5|x10|x15|x20|x25|x30|x50|期|临|回|招|建议|防|禁止|推|TG|倍|试|佣金|节点|延迟|官网|🚧|🎣)).)*$
+    interval: 300
+    lazy: true
+  - name: "🌏国内媒体"
+    type: select
+    proxies:
+      - 🇨🇳直接连接
+      - 🙌手动选择（⬇️下面列表选择分流）
+      - 💱国外网站
+      - 🌍国际媒体
+    lazy: null
+    filter: (?=.*())^((?!(流量|距离|群|x2|x3|x5|x10|x15|x20|x25|x30|x50|期|临|回|招|建议|防|禁止|推|TG|倍|试|佣金|节点|延迟|官网|🚧|🎣)).)*$
+  - name: "🎯国内流量"
+    type: select
+    proxies:
+      - 🇨🇳直接连接
+    hidden: true
+    filter: (?=.*())^((?!(流量|距离|群|x2|x3|x5|x10|x15|x20|x25|x30|x50|期|临|回|招|建议|防|禁止|推|TG|倍|试|佣金|节点|延迟|官网|🚧|🎣)).)*$
+  - name: "🆎广告规则"
+    type: select
+    proxies:
+      - 🚫拒绝连接
+      - 🇨🇳直接连接
+      - 🙌手动选择（⬇️下面列表选择分流）
+      - 💱国外网站
+    filter: (?=.*())^((?!(流量|距离|群|x2|x3|x5|x10|x15|x20|x25|x30|x50|期|临|回|招|建议|防|禁止|推|TG|倍|试|佣金|节点|延迟|官网|🚧|🎣)).)*$
+  - name: "♻️故障转移"
+    type: fallback
+    include-all: null
+    filter: '(?=.*())^((?!(流量|距离|群|x2|x3|x5|x10|x15|x20|x25|x30|x50|期|临|回|招|建议|防|禁止|推|TG|倍|试|佣金|节点|延迟|官网|🚧|🎣)).)*$'
+    url: "https://www.gstatic.com/generate_204"
+    interval: 1800
+    lazy: null
+    use:
+      - 明月配置
+    hidden: true
+  - name: "🇭🇰香港自动选择"
+    type: url-test
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Hong_Kong.png
+    include-all: null
+    filter: (?=.*(港|🇭🇰|HK|(?i)Hong))^((?!(台|日|韩|新|美)).)*$
+    url: "https://www.gstatic.com/generate_204"
+    interval: 1800
+    use:
+      - 明月配置
+    hidden: true
+    tolerance: 150
+  - name: "🇸🇬狮城自动选择"
+    type: url-test
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png
+    include-all: null
+    filter: (?=.*(新|🇸🇬|SG|坡|狮城|(?i)Singapore))^((?!(港|日|台|韩|美)).)*$
+    url: "https://www.gstatic.com/generate_204"
+    interval: 1800
+    use:
+      - 明月配置
+    hidden: true
+    tolerance: 150
+  - name: "🇯🇵日本自动选择"
+    type: url-test
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Japan.png
+    include-all: null
+    filter: (?=.*(日|🇯🇵|JP|东京|(?i)Japan))^((?!(港|台|韩|新|美)).)*$
+    url: "https://www.gstatic.com/generate_204"
+    interval: 1800
+    use:
+      - 明月配置
+    hidden: true
+    tolerance: 150
+  - name: "🇹🇼台湾自动选择"
+    type: url-test
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Taiwan.png
+    include-all: null
+    filter: (?=.*(台|🇹🇼|TW|湾|(?i)Taiwan))^((?!(港|日|韩|新|美)).)*$
+    url: "https://www.gstatic.com/generate_204"
+    interval: 1800
+    use:
+      - 明月配置
+    hidden: true
+    tolerance: 150
+  - name: "🇺🇸美国自动选择"
+    type: url-test
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/United_States.png
+    include-all: null
+    filter: (?=.*(美|US|(?i)States|American))^((?!(港|台|日|韩|新)).)*$
+    url: "https://www.gstatic.com/generate_204"
+    interval: 1800
+    use:
+      - 明月配置
+    tolerance: 150
+    hidden: true
+  - hidden: true
+    name: 🇨🇳直接连接
+    proxies:
+      - DIRECT
+    type: select
+  - hidden: true
+    name: 🚫拒绝连接
+    proxies:
+      - REJECT
+    type: select
+rule-providers:
+  Reject:
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/dler-io/Rules@main/Clash/Provider/Reject.yaml
+    interval: 75600
+    format: yaml
+  Special:
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/dler-io/Rules@main/Clash/Provider/Special.yaml
+    interval: 75600
+    format: yaml
+  PROXY:
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/dler-io/Rules@main/Clash/Provider/Proxy.yaml
+    interval: 75600
+    format: yaml
+  ✅国内域名列表（含国外应用）:
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/dler-io/Rules@main/Clash/Provider/Domestic.yaml
+    interval: 75600
+    format: yaml
+  ✅中国电信:
+    type: http
+    behavior: classical
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/ChinaTelecom/ChinaTelecom.yaml
+    interval: 75600
+    format: yaml
+  Netflix:
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/DivineEngine/Profiles@master/Clash/RuleSet/StreamingMedia/Video/Netflix.yaml
+    interval: 75600
+    format: yaml
+  Spotify:
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/DivineEngine/Profiles@master/Clash/RuleSet/StreamingMedia/Music/Spotify.yaml
+    interval: 75600
+    format: yaml
+  YouTube:
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/DivineEngine/Profiles@master/Clash/RuleSet/StreamingMedia/Video/YouTube.yaml
+    interval: 75600
+    format: yaml
+  Bilibili:
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/dler-io/Rules@main/Clash/Provider/Media/Bilibili.yaml
+    interval: 75600
+    format: yaml
+  IQ:
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/dler-io/Rules@master/Clash/Provider/Media/IQ.yaml
+    interval: 75600
+    format: yaml
+  IQIYI:
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/dler-io/Rules@master/Clash/Provider/Media/IQIYI.yaml
+    interval: 75600
+    format: yaml
+  Letv:
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/dler-io/Rules@main/Clash/Provider/Media/Letv.yaml
+    interval: 75600
+    format: yaml
+  Netease Music:
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/dler-io/Rules@main/Clash/Provider/Media/Netease%20Music.yaml
+    interval: 75600
+    format: yaml
+  Tencent Video:
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/dler-io/Rules@main/Clash/Provider/Media/Tencent%20Video.yaml
+    interval: 75600
+    format: yaml
+  Youku:
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/dler-io/Rules@master/Clash/Provider/Media/Youku.yaml
+    interval: 75600
+    format: yaml
+  WeTV:
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/dler-io/Rules@main/Clash/Provider/Media/WeTV.yaml
+    interval: 75600
+    format: yaml
+  ABC:
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/dler-io/Rules@main/Clash/Provider/Media/ABC.yaml
+    interval: 75600
+    format: yaml
+  Abema TV:
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/dler-io/Rules@main/Clash/Provider/Media/Abema%20TV.yaml
+    interval: 75600
+    format: yaml
+  Amazon:
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/dler-io/Rules@main/Clash/Provider/Media/Amazon.yaml
+    interval: 75600
+    format: yaml
+  Apple Music:
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/DivineEngine/Profiles@master/Clash/RuleSet/Extra/Apple/Music.yaml
+    interval: 75600
+    format: yaml
+  Apple News:
+    type: http
+    behavior: classical
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/AppleNews/AppleNews.yaml
+    interval: 75600
+    format: yaml
+  Apple TV:
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/DivineEngine/Profiles@master/Clash/RuleSet/Extra/Apple/TV.yaml
+    interval: 75600
+    format: yaml
+  Bahamut:
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/DivineEngine/Profiles@master/Clash/RuleSet/StreamingMedia/Video/Bahamut.yaml
+    interval: 75600
+    format: yaml
+  BBC iPlayer:
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/dler-io/Rules@main/Clash/Provider/Media/BBC%20iPlayer.yaml
+    interval: 75600
+    format: yaml
+  DAZN:
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/DivineEngine/Profiles@master/Clash/RuleSet/StreamingMedia/Video/DAZN.yaml
+    interval: 75600
+    format: yaml
+  Discovery Plus:
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/dler-io/Rules@main/Clash/Provider/Media/Discovery%20Plus.yaml
+    interval: 75600
+    format: yaml
+  Disney Plus:
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/dler-io/Rules@main/Clash/Provider/Media/Disney%20Plus.yaml
+    interval: 75600
+    format: yaml
+  encoreTVB:
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/dler-io/Rules@main/Clash/Provider/Media/encoreTVB.yaml
+    interval: 75600
+    format: yaml
+  F1 TV:
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/dler-io/Rules@main/Clash/Provider/Media/F1%20TV.yaml
+    interval: 75600
+    format: yaml
+  Fox Now:
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/dler-io/Rules@main/Clash/Provider/Media/Fox%20Now.yaml
+    interval: 75600
+    format: yaml
+  Fox+:
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/dler-io/Rules@main/Clash/Provider/Media/Fox%2B.yaml
+    interval: 75600
+    format: yaml
+  HBO Go:
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/dler-io/Rules@main/Clash/Provider/Media/HBO%20Go.yaml
+    interval: 75600
+    format: yaml
+  HBO Max:
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/dler-io/Rules@main/Clash/Provider/Media/HBO%20Max.yaml
+    interval: 75600
+    format: yaml
+  Hulu Japan:
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/dler-io/Rules@main/Clash/Provider/Media/Hulu%20Japan.yaml
+    interval: 75600
+    format: yaml
+  Hulu:
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/DivineEngine/Profiles@master/Clash/RuleSet/StreamingMedia/Video/Hulu.yaml
+    interval: 75600
+    format: yaml
+  Japonx:
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/dler-io/Rules@main/Clash/Provider/Media/Japonx.yaml
+    interval: 75600
+    format: yaml
+  JOOX:
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/dler-io/Rules@main/Clash/Provider/Media/JOOX.yaml
+    interval: 75600
+    format: yaml
+  KKBOX:
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/dler-io/Rules@main/Clash/Provider/Media/KKBOX.yaml
+    interval: 75600
+    format: yaml
+  KKTV:
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/dler-io/Rules@main/Clash/Provider/Media/KKTV.yaml
+    interval: 75600
+    format: yaml
+  Line TV:
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/dler-io/Rules@main/Clash/Provider/Media/Line%20TV.yaml
+    interval: 75600
+    format: yaml
+  myTV SUPER:
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/dler-io/Rules@main/Clash/Provider/Media/myTV%20SUPER.yaml
+    interval: 75600
+    format: yaml
+  Niconico:
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/dler-io/Rules@main/Clash/Provider/Media/Niconico.yaml
+    interval: 75600
+    format: yaml
+  Pandora:
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/dler-io/Rules@main/Clash/Provider/Media/Pandora.yaml
+    interval: 75600
+    format: yaml
+  PBS:
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/dler-io/Rules@main/Clash/Provider/Media/PBS.yaml
+    interval: 75600
+    format: yaml
+  Pornhub:
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/DivineEngine/Profiles@master/Clash/RuleSet/StreamingMedia/Video/Pornhub.yaml
+    interval: 75600
+    format: yaml
+  Soundcloud:
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/dler-io/Rules@main/Clash/Provider/Media/Soundcloud.yaml
+    interval: 75600
+    format: yaml
+  ViuTV:
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/dler-io/Rules@main/Clash/Provider/Media/ViuTV.yaml
+    interval: 75600
+    format: yaml
+  Telegram:
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/DivineEngine/Profiles@master/Clash/RuleSet/Extra/Telegram/Telegram.yaml
+    interval: 75600
+    format: yaml
+  Crypto:
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/dler-io/Rules@main/Clash/Provider/Crypto.yaml
+    interval: 75600
+    format: yaml
+  Discord:
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/DivineEngine/Profiles@master/Clash/RuleSet/Extra/Game/Discord.yaml
+    interval: 75600
+    format: yaml
+  Speedtest:
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/dler-io/Rules@main/Clash/Provider/Speedtest.yaml
+    interval: 75600
+    format: yaml
+  PayPal:
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/dler-io/Rules@main/Clash/Provider/PayPal.yaml
+    interval: 75600
+    format: yaml
+  Microsoft:
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/dler-io/Rules@main/Clash/Provider/Microsoft.yaml
+    interval: 75600
+    format: yaml
+  OpenAI:
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/dler-io/Rules@main/Clash/Provider/OpenAI.yaml
+    interval: 75600
+    format: yaml
+  Apple:
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/DivineEngine/Profiles@master/Clash/RuleSet/Extra/Apple/Apple.yaml
+    interval: 75600
+    format: yaml
+  Scholar:
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/dler-io/Rules@main/Clash/Provider/Scholar.yaml
+    interval: 75600
+    format: yaml
+  miHoYo:
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/dler-io/Rules@main/Clash/Provider/miHoYo.yaml
+    interval: 75600
+    format: yaml
+  放行规则-ConnersHua(建议置顶并直连):
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/DivineEngine/Profiles@master/Clash/RuleSet/Unbreak.yaml
+    interval: 75600
+    format: yaml
+  放行规则-ACL4SSR(建议置顶并直连):
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/Providers/UnBan.yaml
+    interval: 75600
+    format: yaml
+  放行规则-lhie1(建议置顶并直连):
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/dler-io/Rules@master/Clash/Provider/Special.yaml
+    interval: 75600
+    format: yaml
+  广告规则:
+    type: http
+    behavior: classical
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/AdvertisingLite/AdvertisingLite.yaml
+    interval: 75600
+    format: yaml
+  ✅隐私规则合集:
+    type: http
+    behavior: classical
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/EasyPrivacy/EasyPrivacy_Classical.yaml
+    interval: 75600
+    format: yaml
+  Netflix(By ACL4SSR):
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/Providers/Ruleset/Netflix.yaml
+    interval: 75600
+    format: yaml
+  Netflix(By lhie1):
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/dler-io/Rules@master/Clash/Provider/Media/Netflix.yaml
+    interval: 75600
+    format: yaml
+  DisneyPlus(By ACL4SSR):
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/Providers/Ruleset/DisneyPlus.yaml
+    interval: 75600
+    format: yaml
+  DisneyPlus:
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/DivineEngine/Profiles@master/Clash/RuleSet/StreamingMedia/Video/DisneyPlus.yaml
+    interval: 75600
+    format: yaml
+  YouTube(By ACL4SSR):
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/Providers/Ruleset/YouTube.yaml
+    interval: 75600
+    format: yaml
+  YouTubeMusic:
+    type: http
+    behavior: classical
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/YouTubeMusic/YouTubeMusic.yaml
+    interval: 75600
+    format: yaml
+  ChatGPT:
+    type: http
+    behavior: classical
+    url: https://raw.githubusercontent.com/G4free/clash-ruleset/main/ruleset/ChatGPT.yaml
+    interval: 75600
+    format: yaml
+  Telegram(By ACL4SSR):
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/Providers/Ruleset/Telegram.yaml
+    interval: 75600
+    format: yaml
+  TelegramNL:
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/DivineEngine/Profiles@master/Clash/RuleSet/Extra/Telegram/TelegramNL.yaml
+    interval: 75600
+    format: yaml
+  TelegramSG:
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/DivineEngine/Profiles@master/Clash/RuleSet/Extra/Telegram/TelegramSG.yaml
+    interval: 75600
+    format: yaml
+  TelegramUS:
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/DivineEngine/Profiles@master/Clash/RuleSet/Extra/Telegram/TelegramUS.yaml
+    interval: 75600
+    format: yaml
+  AppStore:
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/DivineEngine/Profiles@master/Clash/RuleSet/Extra/Apple/AppStore.yaml
+    interval: 75600
+    format: yaml
+  AppStoreConnect:
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/DivineEngine/Profiles@master/Clash/RuleSet/Extra/Apple/AppStoreConnect.yaml
+    interval: 75600
+    format: yaml
+  Apple News(By lhie1):
+    type: http
+    behavior: classical
+    url: https://raw.githubusercontent.com/Hackl0us/SS-Rule-Snippet/main/Rulesets/Clash/Basic/Apple-News.yaml
+    interval: 75600
+    format: yaml
+  Apple TV(By lhie1):
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/dler-io/Rules@master/Clash/Provider/Media/Apple TV.yaml
+    interval: 75600
+    format: yaml
+  Apple(By ACL4SSR):
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/Providers/Ruleset/Apple.yaml
+    interval: 75600
+    format: yaml
+  ✅Apple:
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/dler-io/Rules@master/Clash/Provider/Apple.yaml
+    interval: 75600
+    format: yaml
+  Apple FindMy:
+    type: http
+    behavior: classical
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/FindMy/FindMy.yaml
+    interval: 75600
+    format: yaml
+  iCloud-email:
+    type: http
+    behavior: classical
+    url: https://github.ioiox.com/GitHub/ios_rule_script/raw/commit/6d52f242d70cc9c789fed30bda8005d8b6bedc3b/rule/Clash/iCloud/iCloud.yaml
+    interval: 75600
+    format: yaml
+  Siri:
+    type: http
+    behavior: classical
+    url: https://github.ioiox.com/GitHub/ios_rule_script/raw/commit/31cf3fb10720dfd0f687ce06567178c2edfb0794/rule/Clash/Siri/Siri.yaml
+    interval: 75600
+    format: yaml
+  Apple SoftwareUpdate:
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/DivineEngine/Profiles@master/Clash/RuleSet/Extra/Apple/SoftwareUpdate.yaml
+    interval: 75600
+    format: yaml
+  Apple TestFlight:
+    type: http
+    behavior: classical
+    url: https://raw.githubusercontents.com/blackmatrix7/ios_rule_script/master/rule/Clash/TestFlight/TestFlight.yaml
+    interval: 75600
+    format: yaml
+  Apple iCloud:
+    type: http
+    behavior: classical
+    url: https://github.ioiox.com/GitHub/ios_rule_script/raw/commit/be6837e4119c55e14d2b71312364627d6d38c7ea/rule/Clash/iCloud/iCloud.yaml
+    interval: 75600
+    format: yaml
+  ✅国内流媒体合集:
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/DivineEngine/Profiles@master/Clash/RuleSet/StreamingMedia/StreamingCN.yaml
+    interval: 75600
+    format: yaml
+  ✅国内流媒体国际版合集:
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/DivineEngine/Profiles@master/Clash/RuleSet/StreamingMedia/StreamingSE.yaml
+    interval: 75600
+    format: yaml
+  Bilibili(By ACL4SSR):
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/Providers/Ruleset/Bilibili.yaml
+    interval: 75600
+    format: yaml
+  BilibiliHMT:
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/Providers/Ruleset/BilibiliHMT.yaml
+    interval: 75600
+    format: yaml
+  Bilibili-Intl:
+    type: http
+    behavior: classical
+    url: https://raw.githubusercontents.com/blackmatrix7/ios_rule_script/master/rule/Clash/BiliBiliIntl/BiliBiliIntl.yaml
+    interval: 75600
+    format: yaml
+  iQIYI:
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/DivineEngine/Profiles@master/Clash/RuleSet/StreamingMedia/Video/iQIYI.yaml
+    interval: 75600
+    format: yaml
+  ✅国外流媒体合集:
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/DivineEngine/Profiles@master/Clash/RuleSet/StreamingMedia/Streaming.yaml
+    interval: 75600
+    format: yaml
+  Bahamut(By ACL4SSR):
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/Providers/Ruleset/Bahamut.yaml
+    interval: 75600
+    format: yaml
+  DiscoveryPlus:
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/DivineEngine/Profiles@master/Clash/RuleSet/StreamingMedia/Video/DiscoveryPlus.yaml
+    interval: 75600
+    format: yaml
+  HBO(By ACL4SSR):
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/Providers/Ruleset/HBO.yaml
+    interval: 75600
+    format: yaml
+  HBO-GO-HKG:
+    type: http
+    behavior: classical
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/HBOUSA/HBOUSA.yaml
+    interval: 75600
+    format: yaml
+  HBO:
+    type: http
+    behavior: classical
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/HBOAsia/HBOAsia.yaml
+    interval: 75600
+    format: yaml
+  Hulu-JPN:
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/DivineEngine/Profiles@master/Clash/RuleSet/StreamingMedia/Video/Hulu-JPN.yaml
+    interval: 75600
+    format: yaml
+  Spotify(By ACL4SSR):
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/Providers/Ruleset/Spotify.yaml
+    interval: 75600
+    format: yaml
+  TikTok:
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/DivineEngine/Profiles@master/Clash/RuleSet/StreamingMedia/Video/TikTok.yaml
+    interval: 75600
+    format: yaml
+  Twitch:
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/DivineEngine/Profiles@master/Clash/RuleSet/StreamingMedia/Live/Twitch.yaml
+    interval: 75600
+    format: yaml
+  Instagram:
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/DivineEngine/Profiles@master/Clash/RuleSet/StreamingMedia/Music/Instagram.yaml
+    interval: 75600
+    format: yaml
+  Microsoft(By ACL4SSR):
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/Providers/Ruleset/Microsoft.yaml
+    interval: 75600
+    format: yaml
+  微软服务:
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/dler-io/Rules@master/Clash/Provider/Microsoft.yaml
+    interval: 75600
+    format: yaml
+  Xbox:
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/Providers/Ruleset/Xbox.yaml
+    interval: 75600
+    format: yaml
+  OneDrive(By ACL4SSR):
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/Providers/Ruleset/OneDrive.yaml
+    interval: 75600
+    format: yaml
+  OneDrive:
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/DivineEngine/Profiles@master/Clash/RuleSet/Extra/Microsoft/OneDrive.yaml
+    interval: 75600
+    format: yaml
+  ✅国外网站:
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/Providers/ProxyGFWlist.yaml
+    interval: 75600
+    format: yaml
+  ✅国外常用网站合集:
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/DivineEngine/Profiles@master/Clash/RuleSet/Global.yaml
+    interval: 75600
+    format: yaml
+  国外常用网站合集(By lhie1):
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/dler-io/Rules@master/Clash/Provider/Proxy.yaml
+    interval: 75600
+    format: yaml
+  国内域名白名单:
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/DivineEngine/Profiles@master/Clash/RuleSet/China.yaml
+    interval: 75600
+    format: yaml
+  国内IP白名单:
+    type: http
+    behavior: ipcidr
+    url: https://testingcf.jsdelivr.net/gh/DivineEngine/Profiles@master/Clash/RuleSet/Extra/ChinaIP.yaml
+    interval: 75600
+    format: yaml
+  ✅国内域名白名单:
+    type: http
+    behavior: classical
+    url: https://testingcf.jsdelivr.net/gh/dler-io/Rules@master/Clash/Provider/Domestic.yaml
+    interval: 75600
+    format: yaml
+  ✅中国联通:
+    type: http
+    behavior: classical
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/ChinaUnicom/ChinaUnicom.yaml
+    interval: 75600
+    format: yaml
+  ✅中国移动:
+    type: http
+    behavior: classical
+    url: https://github.ioiox.com/GitHub/ios_rule_script/raw/commit/797eda2b91c5092525bdfe9a35ae1dc66abf1a1a/rule/Clash/ChinaMobile/ChinaMobile.yaml
+    interval: 75600
+    format: yaml
+  必须代理:
+    behavior: classical
+    format: yaml
+    interval: 75600
+    url: https://raw.githubusercontent.com/dler-io/Rules/main/Clash/Provider/Proxy.yaml
+  Openai-1:
+    behavior: classical
+    format: yaml
+    interval: 75600
+    url: https://cdn.jsdelivr.net/gh/Coldvvater/Mononoke@master/Stash/RuleSet/OpenAI.yaml
+  ✅ASN-China:
+    behavior: classical
+    format: yaml
+    interval: 75600
+    url: https://cdn.jsdelivr.net/gh/Hackl0us/SS-Rule-Snippet@master/Rulesets/Clash/Basic/Apple-direct.yaml
+  ✅ChinaIPs:
+    behavior: ipcidr
+    format: yaml
+    interval: 75600
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/ChinaIPs/ChinaIPs_IP.yaml
+  ✅人工智能:
+    behavior: classical
+    format: yaml
+    interval: 75600
+    url: https://raw.githubusercontents.com/Coldvvater/Mononoke/master/Stash/RuleSet/AI.yaml
+  ✅去广告:
+    behavior: classical
+    format: text
+    interval: 75600
+    url: http://script.hub/file/_start_/https://raw.githubusercontent.com/limbopro/Adblock4limbo/main/Adblock4limbo.list/_end_/Adblock4limbo.list?type=rule-set&target=stash-rule-set&del=true
+  ✅微软服务:
+    behavior: classical
+    format: yaml
+    interval: 75600
+    url: https://raw.githubusercontents.com/ACL4SSR/ACL4SSR/master/Clash/Providers/Ruleset/Microsoft.yaml
+  ✅游戏平台:
+    behavior: classical
+    format: yaml
+    interval: 75600
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Game/Game.yaml
+  ✅苹果服务:
+    behavior: classical
+    format: yaml
+    interval: 75600
+    url: https://whatshub.top/rule/Apple.rule
+  ✅AppStore:
+    behavior: classical
+    format: yaml
+    interval: 75600
+    url: https://cdn.jsdelivr.net/gh/DivineEngine/Profiles@master/Clash/RuleSet/Extra/Apple/AppStore.yaml
+  ✅Telegram:
+    behavior: classical
+    format: yaml
+    interval: 75600
+    url: https://raw.githubusercontents.com/ACL4SSR/ACL4SSR/master/Clash/Providers/Ruleset/Telegram.yaml
+  ✅微博:
+    behavior: classical
+    format: yaml
+    interval: 75600
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Weibo/Weibo_No_Resolve.yaml
+  ✅微信:
+    behavior: classical
+    format: yaml
+    interval: 75600
+    url: https://github.ioiox.com/GitHub/ios_rule_script/raw/commit/cf1a629fbe163cdfad62c6b2f2b7b15f922c0217/rule/Clash/WeChat/WeChat.yaml
+  ✅Twitter:
+    behavior: classical
+    format: yaml
+    interval: 75600
+    url: https://raw.githubusercontents.com/ACL4SSR/ACL4SSR/master/Clash/Providers/Ruleset/Twitter.yaml
+  ✅Spotify:
+    behavior: classical
+    format: yaml
+    interval: 75600
+    url: https://raw.githubusercontents.com/ACL4SSR/ACL4SSR/master/Clash/Providers/Ruleset/Spotify.yaml
+  ✅PayPal:
+    behavior: classical
+    format: yaml
+    interval: 75600
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/PayPal/PayPal_No_Resolve.yaml
+  ✅FaceBook:
+    behavior: classical
+    format: yaml
+    interval: 75600
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Facebook/Facebook.yaml
+  ✅YouTube:
+    behavior: classical
+    format: yaml
+    interval: 75600
+    url: https://raw.githubusercontents.com/ACL4SSR/ACL4SSR/master/Clash/Providers/Ruleset/YouTube.yaml
+  ✅YouTubeMusic:
+    behavior: classical
+    format: yaml
+    interval: 75600
+    url: https://github.ioiox.com/GitHub/ios_rule_script/raw/commit/a6f821c2b0b22f8b2401434556018efdc3249a37/rule/Clash/YouTubeMusic/YouTubeMusic.yaml
+  ✅Netflix:
+    behavior: classical
+    format: yaml
+    interval: 75600
+    url: https://raw.githubusercontents.com/ACL4SSR/ACL4SSR/master/Clash/Providers/Ruleset/Netflix.yaml
+  ✅Disney:
+    behavior: classical
+    format: yaml
+    interval: 75600
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Disney/Disney_No_Resolve.yaml
+  ✅BiliBili:
+    behavior: classical
+    format: yaml
+    interval: 75600
+    url: https://raw.githubusercontents.com/ACL4SSR/ACL4SSR/master/Clash/Providers/Ruleset/Bilibili.yaml
+  ✅国内媒体:
+    behavior: classical
+    format: yaml
+    interval: 75600
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/ChinaMedia/ChinaMedia.yaml
+  ✅国外媒体:
+    behavior: classical
+    format: yaml
+    interval: 75600
+    url: https://raw.githubusercontents.com/ACL4SSR/ACL4SSR/master/Clash/Providers/ProxyMedia.yaml
+  ✅Google:
+    behavior: classical
+    format: yaml
+    interval: 75600
+    url: https://raw.githubusercontents.com/ACL4SSR/ACL4SSR/master/Clash/Providers/Ruleset/Google.yaml
+  ✅OneDrive:
+    behavior: classical
+    format: yaml
+    interval: 75600
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/OneDrive/OneDrive.yaml
+  ✅AppleMusic:
+    behavior: classical
+    format: yaml
+    interval: 75600
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/AppleMusic/AppleMusic.yaml
+  ✅Line:
+    behavior: classical
+    format: yaml
+    interval: 75600
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/LineTV/LineTV.yaml
+  ✅TikTok:
+    behavior: classical
+    format: yaml
+    interval: 75600
+    url: https://raw.githubusercontents.com/ACL4SSR/ACL4SSR/master/Clash/Providers/Ruleset/TikTok.yaml
+  ✅维基百科:
+    behavior: classical
+    format: yaml
+    interval: 75600
+    url: https://github.ioiox.com/GitHub/ios_rule_script/raw/commit/8fbe6badbd4edf97aec20f378077297d88d1a350/rule/Clash/Wikipedia/Wikipedia.yaml
+  ✅BBC:
+    behavior: classical
+    format: yaml
+    interval: 75600
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/BBC/BBC.yaml
+  ✅亚马逊:
+    behavior: classical
+    format: yaml
+    interval: 75600
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Amazon/Amazon.yaml
+  ✅Instagram:
+    behavior: classical
+    format: yaml
+    interval: 75600
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Instagram/Instagram.yaml
+  ✅Whatsapp:
+    behavior: classical
+    format: yaml
+    interval: 75600
+    url: https://raw.githubusercontent.com/Hackl0us/SS-Rule-Snippet/main/Rulesets/Clash/App/social/WhatsApp.yaml
+  ✅巴哈姆特:
+    behavior: classical
+    format: yaml
+    interval: 75600
+    url: https://raw.githubusercontents.com/ACL4SSR/ACL4SSR/master/Clash/Providers/Ruleset/Bahamut.yaml
+  ✅HBO:
+    behavior: classical
+    format: yaml
+    interval: 75600
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/HBO/HBO_No_Resolve.yaml
+  ✅Fox:
+    behavior: classical
+    format: yaml
+    interval: 75600
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/FOXNOW/FOXNOW.yaml
+  ✅Hulu:
+    behavior: classical
+    format: yaml
+    interval: 75600
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/HuluJP/HuluJP.yaml
+  ✅KKBOX:
+    behavior: classical
+    format: yaml
+    interval: 75600
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/KKBOX/KKBOX.yaml
+  ✅TIDAL:
+    behavior: classical
+    format: yaml
+    interval: 75600
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/TIDAL/TIDAL.yaml
+  ✅TVB:
+    behavior: classical
+    format: yaml
+    interval: 75600
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/EncoreTVB/EncoreTVB.yaml
+  ✅Emby:
+    behavior: classical
+    format: yaml
+    interval: 75600
+    url: https://raw.githubusercontents.com/blackmatrix7/ios_rule_script/master/rule/Clash/Emby/Emby.yaml
+  ✅网易云音乐:
+    behavior: classical
+    format: yaml
+    interval: 75600
+    url: https://raw.githubusercontents.com/ACL4SSR/ACL4SSR/master/Clash/Providers/Ruleset/NetEaseMusic.yaml
+  ✅GitHub:
+    behavior: classical
+    format: yaml
+    interval: 75600
+    url: https://raw.githubusercontents.com/ACL4SSR/ACL4SSR/master/Clash/Providers/Ruleset/Github.yaml
+  ✅Dropbox:
+    behavior: classical
+    format: yaml
+    interval: 75600
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Dropbox/Dropbox.yaml
+  ✅Duckduckgo:
+    behavior: classical
+    format: yaml
+    interval: 75600
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Duckduckgo/Duckduckgo.yaml
+  ✅国外代理:
+    behavior: classical
+    format: yaml
+    interval: 75600
+    url: https://whatshub.top/rule/Proxy.rule
+  ✅国内直连:
+    behavior: classical
+    format: yaml
+    interval: 75600
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/China/China_Classical.yaml
+  ✅Cloudflare:
+    behavior: classical
+    format: yaml
+    interval: 75600
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Cloudflare/Cloudflare.yaml
+  ✅国外IP:
+    behavior: ipcidr
+    format: yaml
+    interval: 75600
+    url: https://raw.githubusercontent.com/yorunning/clash-conf/main/rule/ProxyGFWlist_ipcidr.yaml
+  ✅大陆IP白名单:
+    behavior: ipcidr
+    format: text
+    interval: 75600
+    url: https://testingcf.jsdelivr.net/gh/Hackl0us/GeoIP2-CN@release/CN-ip-cidr.txt
+  大陆IPV6白名单:
+    behavior: ipcidr
+    format: text
+    interval: 75600
+    url: https://ispip.clang.cn/all_cn_ipv6.txt
+  广东省IP列表:
+    behavior: ipcidr
+    format: text
+    interval: 75600
+    url: https://raw.githubusercontent.com/metowolf/iplist/master/data/cncity/440000.txt
+  广东佛山IP列表:
+    behavior: ipcidr
+    format: text
+    interval: 75600
+    url: https://raw.githubusercontent.com/metowolf/iplist/master/data/cncity/440600.txt
+  广东深圳IP列表:
+    behavior: ipcidr
+    format: text
+    interval: 75600
+    url: https://raw.githubusercontent.com/metowolf/iplist/master/data/cncity/440300.txt
+  广东广州IP列表:
+    behavior: ipcidr
+    format: text
+    interval: 75600
+    url: https://raw.githubusercontent.com/metowolf/iplist/master/data/cncity/440100.txt
+  广东茂名IP列表:
+    behavior: ipcidr
+    format: text
+    interval: 75600
+    url: https://raw.githubusercontent.com/metowolf/iplist/master/data/cncity/440900.txt
+script:
+shortcuts:
+  # 4483 与 9305 为 BiliBili 的 QUIC CDN 
+  quic: network == 'udp' and (dst_port == 443 or dst_port == 4483 or dst_port == 9305)
+rules:
+  - DOMAIN-SUFFIX,❌❌远程规则集名称不可相同❌❌请参考左下列表❌,REJECT
+  - DOMAIN-SUFFIX,blobstore.apple.com,💱国外网站
+  - DOMAIN-SUFFIX,itsliveradio.apple.com,💱国外网站
+  - DOMAIN-SUFFIX,aodp-ssl.apple.com,💱国外网站
+  - DOMAIN-SUFFIX,video-ssl.itunes.apple.com,💱国外网站
+  - DOMAIN-SUFFIX,mvod.itunes.apple.com,💱国外网站
+  - DOMAIN-SUFFIX,hls-amt.itunes.apple.com,💱国外网站
+  - DOMAIN-SUFFIX,audio-ssl.itunes.apple.com,💱国外网站
+  - DOMAIN-SUFFIX,streamingaudio.itunes.apple.com,💱国外网站
+  - DOMAIN-SUFFIX,amazonaws.com,💱国外网站
+  - DOMAIN-SUFFIX,audio.itunes.apple.com,💱国外网站
+  - DOMAIN-SUFFIX,xp.apple.com,DIRECT
+  - DOMAIN-SUFFIX,guzzoni.apple.com,DIRECT
+  - IP-CIDR,1.1.1.1/32,♻️故障转移,no-resolve
+  - IP-CIDR,1.0.0.1/32,♻️故障转移,no-resolve
+  - IP-CIDR,8.8.8.8/32,♻️故障转移,no-resolve
+  - IP-CIDR,8.8.4.4/32,♻️故障转移,no-resolve
+  - IP-CIDR,208.67.222.222/32,♻️故障转移,no-resolve
+  - IP-CIDR,208.67.220.220/32,♻️故障转移,no-resolve
+  - IP-CIDR,9.9.9.9/32,♻️故障转移,no-resolve
+  - IP-CIDR,149.112.112.112/32,♻️故障转移,no-resolve
+  - DOMAIN-SUFFIX,128100.xyz,🌍国际媒体
+  - DOMAIN-SUFFIX,amplitude.com,🌍国际媒体
+  - DOMAIN-SUFFIX,stripchat.com,🌍国际媒体
+  - DOMAIN-SUFFIX,xxxivjmp.com,🌍国际媒体
+  - DOMAIN-SUFFIX,go.mnaspm.com,🌍国际媒体
+  - DOMAIN-SUFFIX,lovense-api.com,🌍国际媒体
+  - DOMAIN-SUFFIX,cdn.hytto.com,🌍国际媒体
+  - DOMAIN-SUFFIX,cableav.tv,🌍国际媒体
+  - DOMAIN-SUFFIX,strpst.com,🌍国际媒体
+  - DOMAIN-SUFFIX,xxxviiijmp.com,🌍国际媒体
+  - DOMAIN-SUFFIX,doppiocdn.com,🌍国际媒体
+  - DOMAIN-SUFFIX,tsyndicate.com,🌍国际媒体
+  - DOMAIN-SUFFIX,doppiostreams.com,🌍国际媒体
+  - DOMAIN-SUFFIX,chaturbate.com,🌍国际媒体
+  - DOMAIN-SUFFIX,highwebmedia.com,🌍国际媒体
+  - DOMAIN-SUFFIX,fluidplayer.com,🌍国际媒体
+  - DOMAIN-SUFFIX,ext-twitch.tv,🌍国际媒体
+  - DOMAIN-SUFFIX,jtvnw.net,🌍国际媒体
+  - DOMAIN-SUFFIX,live-video.net,🌍国际媒体
+  - DOMAIN-SUFFIX,ttvnw.net,🌍国际媒体
+  - DOMAIN-SUFFIX,twitch.a2z.com,🌍国际媒体
+  - DOMAIN-SUFFIX,twitchcdn.net,🌍国际媒体
+  - DOMAIN-SUFFIX,twitchcdn-shadow.net,🌍国际媒体
+  - DOMAIN-SUFFIX,twitch-shadow.net,🌍国际媒体
+  - DOMAIN-SUFFIX,twitchsvc.net,🌍国际媒体
+  - DOMAIN-SUFFIX,twitchsvc-staging.tech,🌍国际媒体
+  - DOMAIN-SUFFIX,twitch.tv,🌍国际媒体
+  - DOMAIN-SUFFIX,ads-twitter.com,🌍国际媒体
+  - DOMAIN-SUFFIX,periscope.tv,🌍国际媒体
+  - DOMAIN-SUFFIX,pscp.tv,🌍国际媒体
+  - DOMAIN-SUFFIX,t.co,🌍国际媒体
+  - DOMAIN-SUFFIX,tweetdeck.com,🌍国际媒体
+  - DOMAIN-SUFFIX,twimg.com,🌍国际媒体
+  - DOMAIN-SUFFIX,twitpic.com,🌍国际媒体
+  - DOMAIN-SUFFIX,twitter.co,🌍国际媒体
+  - DOMAIN-SUFFIX,twitter.com,🌍国际媒体
+  - DOMAIN-SUFFIX,twitterinc.com,🌍国际媒体
+  - DOMAIN-SUFFIX,twitteroauth.com,🌍国际媒体
+  - DOMAIN-SUFFIX,twitterstat.us,🌍国际媒体
+  - DOMAIN-SUFFIX,twtrdns.net,🌍国际媒体
+  - DOMAIN-SUFFIX,twttr.com,🌍国际媒体
+  - DOMAIN-SUFFIX,x.com,🌍国际媒体
+  - DOMAIN-SUFFIX,cdninstagram.com,🌍国际媒体
+  - DOMAIN-SUFFIX,ig.me,🌍国际媒体
+  - DOMAIN-SUFFIX,igsonar.com,🌍国际媒体
+  - DOMAIN-SUFFIX,instagram.c10r.facebook.com,🌍国际媒体
+  - DOMAIN-SUFFIX,instagram.com,🌍国际媒体
+  - DOMAIN-SUFFIX,accountkit.com,🌍国际媒体
+  - DOMAIN-SUFFIX,acebook.com,🌍国际媒体
+  - DOMAIN-SUFFIX,faacebook.com,🌍国际媒体
+  - DOMAIN-SUFFIX,facebbook.com,🌍国际媒体
+  - DOMAIN-SUFFIX,facebookcareers.com,🌍国际媒体
+  - DOMAIN-SUFFIX,facebook.co,🌍国际媒体
+  - DOMAIN-SUFFIX,facebook.com,🌍国际媒体
+  - DOMAIN-SUFFIX,facebook.com.au,🌍国际媒体
+  - DOMAIN-SUFFIX,facebook.com.mx,🌍国际媒体
+  - DOMAIN-SUFFIX,facebook-dns.com,🌍国际媒体
+  - DOMAIN-SUFFIX,facebookenterprise.com,🌍国际媒体
+  - DOMAIN-SUFFIX,facebook-hardware.com,🌍国际媒体
+  - DOMAIN-SUFFIX,facebook.it,🌍国际媒体
+  - DOMAIN-SUFFIX,facebookmail.com,🌍国际媒体
+  - DOMAIN-SUFFIX,facebook.net,🌍国际媒体
+  - DOMAIN-SUFFIX,facebookrecruiting.com,🌍国际媒体
+  - DOMAIN-SUFFIX,facebookstudy.com,🌍国际媒体
+  - DOMAIN-SUFFIX,facebookvirtualassistant.com,🌍国际媒体
+  - DOMAIN-SUFFIX,fb.audio,🌍国际媒体
+  - DOMAIN-SUFFIX,fbcdn.net,🌍国际媒体
+  - DOMAIN-SUFFIX,fb.com,🌍国际媒体
+  - DOMAIN-SUFFIX,fbe2e.com,🌍国际媒体
+  - DOMAIN-SUFFIX,fb.gg,🌍国际媒体
+  - DOMAIN-SUFFIX,fbinfra.net,🌍国际媒体
+  - DOMAIN-SUFFIX,fb.me,🌍国际媒体
+  - DOMAIN-SUFFIX,fbpigeon.com,🌍国际媒体
+  - DOMAIN-SUFFIX,fbsbx.com,🌍国际媒体
+  - DOMAIN-SUFFIX,fbthirdpartypixel.com,🌍国际媒体
+  - DOMAIN-SUFFIX,fb.watch,🌍国际媒体
+  - DOMAIN-SUFFIX,fbwat.ch,🌍国际媒体
+  - DOMAIN-SUFFIX,internet.org,🌍国际媒体
+  - DOMAIN-SUFFIX,m-freeway.com,🌍国际媒体
+  - DOMAIN-SUFFIX,parse.com,🌍国际媒体
+  - DOMAIN-SUFFIX,wit.ai,🌍国际媒体
+  - DOMAIN-SUFFIX,byteoversea.com,🌍国际媒体
+  - DOMAIN-SUFFIX,abtest-sg-tiktok.byteoversea.com,🌍国际媒体
+  - DOMAIN-SUFFIX,abtest-va-tiktok.byteoversea.com,🌍国际媒体
+  - DOMAIN-SUFFIX,byteglb.com,🌍国际媒体
+  - DOMAIN-SUFFIX,gts.byteoversea.net,🌍国际媒体
+  - DOMAIN-SUFFIX,isnssdk.com,🌍国际媒体
+  - DOMAIN-SUFFIX,lf1-ttcdn-tos.pstatp.com,🌍国际媒体
+  - DOMAIN-SUFFIX,muscdn.com,🌍国际媒体
+  - DOMAIN-SUFFIX,musemuse.cn,🌍国际媒体
+  - DOMAIN-SUFFIX,musical.ly,🌍国际媒体
+  - DOMAIN-SUFFIX,p16-ad-sg.ibyteimg.com,🌍国际媒体
+  - DOMAIN-SUFFIX,p16-tiktok-sg.ibyteimg.com,🌍国际媒体
+  - DOMAIN-SUFFIX,p16-tiktok-sign-va-h2.ibyteimg.com,🌍国际媒体
+  - DOMAIN-SUFFIX,p16-tiktok-va-h2.ibyteimg.com,🌍国际媒体
+  - DOMAIN-SUFFIX,p16-tiktok-va.ibyteimg.com,🌍国际媒体
+  - DOMAIN-SUFFIX,p16-va-tiktok.ibyteimg.com,🌍国际媒体
+  - DOMAIN-SUFFIX,p1-tt.byteimg.com,🌍国际媒体
+  - DOMAIN-SUFFIX,p1-tt-ipv6.byteimg.com,🌍国际媒体
+  - DOMAIN-SUFFIX,p26-tt.byteimg.com,🌍国际媒体
+  - DOMAIN-SUFFIX,p3-tt-ipv6.byteimg.com,🌍国际媒体
+  - DOMAIN-SUFFIX,p9-tt.byteimg.com,🌍国际媒体
+  - DOMAIN-SUFFIX,pull-f3-hs.pstatp.com,🌍国际媒体
+  - DOMAIN-SUFFIX,pull-f5-hs.flive.pstatp.com,🌍国际媒体
+  - DOMAIN-SUFFIX,pull-f5-hs.pstatp.com,🌍国际媒体
+  - DOMAIN-SUFFIX,pull-f5-mus.pstatp.com,🌍国际媒体
+  - DOMAIN-SUFFIX,pull-flv-f1-hs.pstatp.com,🌍国际媒体
+  - DOMAIN-SUFFIX,pull-flv-f6-hs.pstatp.com,🌍国际媒体
+  - DOMAIN-SUFFIX,pull-flv-l1-hs.pstatp.com,🌍国际媒体
+  - DOMAIN-SUFFIX,pull-flv-l1-mus.pstatp.com,🌍国际媒体
+  - DOMAIN-SUFFIX,pull-flv-l6-hs.pstatp.com,🌍国际媒体
+  - DOMAIN-SUFFIX,pull-hls-l1-mus.pstatp.com,🌍国际媒体
+  - DOMAIN-SUFFIX,pull-l3-hs.pstatp.com,🌍国际媒体
+  - DOMAIN-SUFFIX,pull-rtmp-f1-hs.pstatp.com,🌍国际媒体
+  - DOMAIN-SUFFIX,pull-rtmp-f6-hs.pstatp.com,🌍国际媒体
+  - DOMAIN-SUFFIX,pull-rtmp-l1-hs.pstatp.com,🌍国际媒体
+  - DOMAIN-SUFFIX,pull-rtmp-l1-mus.pstatp.com,🌍国际媒体
+  - DOMAIN-SUFFIX,pull-rtmp-l6-hs.pstatp.com,🌍国际媒体
+  - DOMAIN-SUFFIX,quic-tiktok-core-proxy-i18n-gcpva.byteoversea.net,🌍国际媒体
+  - DOMAIN-SUFFIX,quic-tiktok-proxy-i18n-gcpva.byteoversea.net,🌍国际媒体
+  - DOMAIN-SUFFIX,sf16-ttcdn-tos.ipstatp.com,🌍国际媒体
+  - DOMAIN-SUFFIX,sf1-ttcdn-tos.pstatp.com,🌍国际媒体
+  - DOMAIN-SUFFIX,sf6-ttcdn-tos.pstatp.com,🌍国际媒体
+  - DOMAIN-SUFFIX,sgsnssdk.com,🌍国际媒体
+  - DOMAIN-SUFFIX,tiktokcdn.com,🌍国际媒体
+  - DOMAIN-SUFFIX,tiktokcdn.com.atomile.com,🌍国际媒体
+  - DOMAIN-SUFFIX,tiktokcdn.com.c.bytefcdn-oversea.com,🌍国际媒体
+  - DOMAIN-SUFFIX,tiktokcdn.com.c.bytefcdn-ttpeu.com,🌍国际媒体
+  - DOMAIN-SUFFIX,tiktokcdn.com.c.bytetcdn.com,🌍国际媒体
+  - DOMAIN-SUFFIX,tiktokcdn.com.c.worldfcdn.com,🌍国际媒体
+  - DOMAIN-SUFFIX,tiktokcdn.com.qlivecdn.com,🌍国际媒体
+  - DOMAIN-SUFFIX,tiktokcdn.com.rocket-cdn.com,🌍国际媒体
+  - DOMAIN-SUFFIX,tiktokcdn.com.tlivepush.com,🌍国际媒体
+  - DOMAIN-SUFFIX,tiktokcdn-eu.com,🌍国际媒体
+  - DOMAIN-SUFFIX,tiktokcdn-in.com,🌍国际媒体
+  - DOMAIN-SUFFIX,tiktokcdn-us.com,🌍国际媒体
+  - DOMAIN-SUFFIX,tiktokcdn-us.com.atomile.com,🌍国际媒体
+  - DOMAIN-SUFFIX,tiktok.com,🌍国际媒体
+  - DOMAIN-SUFFIX,tiktokd.org,🌍国际媒体
+  - DOMAIN-SUFFIX,tiktokglobalshop.com,🌍国际媒体
+  - DOMAIN-SUFFIX,tiktokglobalshopv.com,🌍国际媒体
+  - DOMAIN-SUFFIX,tiktok.in,🌍国际媒体
+  - DOMAIN-SUFFIX,tiktok-lb-alisg.byteoversea.net,🌍国际媒体
+  - DOMAIN-SUFFIX,tiktok-lb-maliva.byteoversea.net,🌍国际媒体
+  - DOMAIN-SUFFIX,tiktokmusic.app,🌍国际媒体
+  - DOMAIN-SUFFIX,tiktok-platform-lb-alisg.byteoversea.net,🌍国际媒体
+  - DOMAIN-SUFFIX,tiktokshop.com,🌍国际媒体
+  - DOMAIN-SUFFIX,tiktokstaticb.com,🌍国际媒体
+  - DOMAIN-SUFFIX,tiktokv.com,🌍国际媒体
+  - DOMAIN-SUFFIX,tiktokv.com.c.bytefcdn-oversea.com,🌍国际媒体
+  - DOMAIN-SUFFIX,tiktokv.com.c.worldfcdn2.com,🌍国际媒体
+  - DOMAIN-SUFFIX,tiktokv.com.c.worldfcdn.com,🌍国际媒体
+  - DOMAIN-SUFFIX,tiktokv.eu,🌍国际媒体
+  - DOMAIN-SUFFIX,tiktokv.us,🌍国际媒体
+  - DOMAIN-SUFFIX,tlivecdn.com,🌍国际媒体
+  - DOMAIN-SUFFIX,ttdns2.com,🌍国际媒体
+  - DOMAIN-SUFFIX,ttlivecdn.com,🌍国际媒体
+  - DOMAIN-SUFFIX,ttlivecdn.com.c.bytefcdn-oversea.com,🌍国际媒体
+  - DOMAIN-SUFFIX,ttlivecdn.com.c.worldfcdn.com,🌍国际媒体
+  - DOMAIN-SUFFIX,ttoversea.net,🌍国际媒体
+  - DOMAIN-SUFFIX,ttoverseaus.net,🌍国际媒体
+  - DOMAIN-SUFFIX,ttwstatic.com,🌍国际媒体
+  - RULE-SET,放行规则-ConnersHua(建议置顶并直连),DIRECT,no-resolve
+  - RULE-SET,放行规则-ACL4SSR(建议置顶并直连),DIRECT,no-resolve
+  - RULE-SET,放行规则-lhie1(建议置顶并直连),DIRECT,no-resolve
+  - RULE-SET,Special,DIRECT,no-resolve
+  - RULE-SET,✅隐私规则合集,🆎广告规则,no-resolve
+  - RULE-SET,✅去广告,🆎广告规则,no-resolve
+  - RULE-SET,广告规则,🆎广告规则,no-resolve
+  - RULE-SET,Reject,🆎广告规则,no-resolve
+  - RULE-SET,✅Netflix,🎞️奈飞,no-resolve
+  - RULE-SET,Netflix,🎞️奈飞,no-resolve
+  - RULE-SET,Netflix(By ACL4SSR),🎞️奈飞,no-resolve
+  - RULE-SET,Netflix(By lhie1),🎞️奈飞,no-resolve
+  - RULE-SET,✅Disney,🎞️迪士尼,no-resolve
+  - RULE-SET,DisneyPlus(By ACL4SSR),🎞️迪士尼,no-resolve
+  - RULE-SET,DisneyPlus,🎞️迪士尼,no-resolve
+  - RULE-SET,Disney Plus,🎞️迪士尼,no-resolve
+  - RULE-SET,✅YouTube,📹Youtube,no-resolve
+  - RULE-SET,✅YouTubeMusic,📹Youtube,no-resolve
+  - RULE-SET,Pornhub,📹Youtube,no-resolve
+  - RULE-SET,YouTube(By ACL4SSR),📹Youtube,no-resolve
+  - RULE-SET,YouTube,📹Youtube,no-resolve
+  - RULE-SET,YouTubeMusic,📹Youtube,no-resolve
+  - RULE-SET,✅人工智能,🤖OpenAI,no-resolve
+  - RULE-SET,ChatGPT,🤖OpenAI,no-resolve
+  - RULE-SET,OpenAI,🤖OpenAI,no-resolve
+  - RULE-SET,Openai-1,🤖OpenAI,no-resolve
+  - RULE-SET,✅Telegram,📲Telegram,no-resolve
+  - RULE-SET,Telegram(By ACL4SSR),📲Telegram,no-resolve
+  - RULE-SET,Telegram,📲Telegram,no-resolve
+  - RULE-SET,TelegramNL,📲Telegram,no-resolve
+  - RULE-SET,TelegramSG,📲Telegram,no-resolve
+  - RULE-SET,TelegramUS,📲Telegram,no-resolve
+  - RULE-SET,✅游戏平台,🎮游戏平台,no-resolve
+  - RULE-SET,✅苹果服务,🍎苹果服务,no-resolve
+  - RULE-SET,✅Apple,🍎苹果服务,no-resolve
+  - RULE-SET,✅AppStore,🍎苹果服务,no-resolve
+  - RULE-SET,✅AppleMusic,🍎苹果服务,no-resolve
+  - RULE-SET,AppStore,🍎苹果服务,no-resolve
+  - RULE-SET,AppStoreConnect,🍎苹果服务,no-resolve
+  - RULE-SET,Apple News(By lhie1),🍎苹果服务,no-resolve
+  - RULE-SET,Apple TV(By lhie1),🍎苹果服务,no-resolve
+  - RULE-SET,Apple Music,🍎苹果服务,no-resolve
+  - RULE-SET,Apple(By ACL4SSR),🍎苹果服务,no-resolve
+  - RULE-SET,Apple,🍎苹果服务,no-resolve
+  - RULE-SET,Apple FindMy,🍎苹果服务,no-resolve
+  - RULE-SET,Apple News,🍎苹果服务,no-resolve
+  - RULE-SET,Apple TV,🍎苹果服务,no-resolve
+  - RULE-SET,iCloud-email,🍎苹果服务,no-resolve
+  - RULE-SET,Apple Music,🍎苹果服务,no-resolve
+  - RULE-SET,Siri,🍎苹果服务,no-resolve
+  - RULE-SET,Apple SoftwareUpdate,🍎苹果服务,no-resolve
+  - RULE-SET,Apple TV,🍎苹果服务,no-resolve
+  - RULE-SET,Apple TestFlight,🍎苹果服务,no-resolve
+  - RULE-SET,Apple iCloud,🍎苹果服务,no-resolve
+  - RULE-SET,✅国内媒体,🌏国内媒体,no-resolve
+  - RULE-SET,✅网易云音乐,🌏国内媒体,no-resolve
+  - RULE-SET,✅BiliBili,🌏国内媒体,no-resolve
+  - RULE-SET,✅国内流媒体合集,🌏国内媒体,no-resolve
+  - RULE-SET,✅国内流媒体国际版合集,🌏国内媒体,no-resolve
+  - RULE-SET,Bilibili(By ACL4SSR),🌏国内媒体,no-resolve
+  - RULE-SET,BilibiliHMT,🌏国内媒体,no-resolve
+  - RULE-SET,IQ,🌏国内媒体,no-resolve
+  - RULE-SET,Tencent Video,🌏国内媒体,no-resolve
+  - RULE-SET,WeTV,🌏国内媒体,no-resolve
+  - RULE-SET,Netease Music,🌏国内媒体,no-resolve
+  - RULE-SET,Letv,🌏国内媒体,no-resolve
+  - RULE-SET,Youku,🌏国内媒体,no-resolve
+  - RULE-SET,Bilibili,🌏国内媒体,no-resolve
+  - RULE-SET,Bilibili-Intl,🌏国内媒体,no-resolve
+  - RULE-SET,IQIYI,🌏国内媒体,no-resolve
+  - RULE-SET,iQIYI,🌏国内媒体,no-resolve
+  - RULE-SET,✅国外媒体,🌍国际媒体,no-resolve
+  - RULE-SET,✅巴哈姆特,🌍国际媒体,no-resolve
+  - RULE-SET,✅Hulu,🌍国际媒体,no-resolve
+  - RULE-SET,✅Line,🌍国际媒体,no-resolve
+  - RULE-SET,✅TVB,🌍国际媒体,no-resolve
+  - RULE-SET,✅Emby,🌍国际媒体,no-resolve
+  - RULE-SET,✅Spotify,🌍国际媒体,no-resolve
+  - RULE-SET,✅TIDAL,🌍国际媒体,no-resolve
+  - RULE-SET,✅HBO,🌍国际媒体,no-resolve
+  - RULE-SET,✅Instagram,🌍国际媒体,no-resolve
+  - RULE-SET,✅Twitter,🌍国际媒体,no-resolve
+  - RULE-SET,✅巴哈姆特,🌍国际媒体,no-resolve
+  - RULE-SET,✅BBC,🌍国际媒体,no-resolve
+  - RULE-SET,✅KKBOX,🌍国际媒体,no-resolve
+  - RULE-SET,✅FaceBook,🌍国际媒体,no-resolve
+  - RULE-SET,✅国外流媒体合集,🌍国际媒体,no-resolve
+  - RULE-SET,Bahamut(By ACL4SSR),🌍国际媒体,no-resolve
+  - RULE-SET,Bahamut,🌍国际媒体,no-resolve
+  - RULE-SET,DAZN,🌍国际媒体,no-resolve
+  - RULE-SET,Discord,🌍国际媒体,no-resolve
+  - RULE-SET,DiscoveryPlus,🌍国际媒体,no-resolve
+  - RULE-SET,HBO(By ACL4SSR),🌍国际媒体,no-resolve
+  - RULE-SET,HBO-GO-HKG,🌍国际媒体,no-resolve
+  - RULE-SET,HBO,🌍国际媒体,no-resolve
+  - RULE-SET,Hulu-JPN,🌍国际媒体,no-resolve
+  - RULE-SET,Hulu,🌍国际媒体,no-resolve
+  - RULE-SET,Spotify(By ACL4SSR),🌍国际媒体,no-resolve
+  - RULE-SET,Spotify,🌍国际媒体,no-resolve
+  - RULE-SET,TikTok,🌍国际媒体,no-resolve
+  - RULE-SET,Twitch,🌍国际媒体,no-resolve
+  - RULE-SET,Instagram,🌍国际媒体,no-resolve
+  - RULE-SET,Spotify,🌍国际媒体,no-resolve
+  - RULE-SET,ABC,🌍国际媒体,no-resolve
+  - RULE-SET,Abema TV,🌍国际媒体,no-resolve
+  - RULE-SET,Amazon,🌍国际媒体,no-resolve
+  - RULE-SET,Bahamut,🌍国际媒体,no-resolve
+  - RULE-SET,BBC iPlayer,🌍国际媒体,no-resolve
+  - RULE-SET,DAZN,🌍国际媒体,no-resolve
+  - RULE-SET,Discovery Plus,🌍国际媒体,no-resolve
+  - RULE-SET,encoreTVB,🌍国际媒体,no-resolve
+  - RULE-SET,F1 TV,🌍国际媒体,no-resolve
+  - RULE-SET,Fox Now,🌍国际媒体,no-resolve
+  - RULE-SET,Fox+,🌍国际媒体,no-resolve
+  - RULE-SET,HBO Go,🌍国际媒体,no-resolve
+  - RULE-SET,HBO Max,🌍国际媒体,no-resolve
+  - RULE-SET,Hulu Japan,🌍国际媒体,no-resolve
+  - RULE-SET,Japonx,🌍国际媒体,no-resolve
+  - RULE-SET,JOOX,🌍国际媒体,no-resolve
+  - RULE-SET,KKBOX,🌍国际媒体,no-resolve
+  - RULE-SET,KKTV,🌍国际媒体,no-resolve
+  - RULE-SET,Line TV,🌍国际媒体,no-resolve
+  - RULE-SET,myTV SUPER,🌍国际媒体,no-resolve
+  - RULE-SET,Pandora,🌍国际媒体,no-resolve
+  - RULE-SET,PBS,🌍国际媒体,no-resolve
+  - RULE-SET,Niconico,🌍国际媒体,no-resolve
+  - RULE-SET,Soundcloud,🌍国际媒体,no-resolve
+  - RULE-SET,ViuTV,🌍国际媒体,no-resolve
+  - RULE-SET,Discord,🌍国际媒体,no-resolve
+  - RULE-SET,✅微软服务,Ⓜ️微软服务,no-resolve
+  - RULE-SET,✅OneDrive,Ⓜ️微软服务,no-resolve
+  - RULE-SET,OneDrive,Ⓜ️微软服务,no-resolve
+  - RULE-SET,OneDrive(By ACL4SSR),Ⓜ️微软服务,no-resolve
+  - RULE-SET,Microsoft(By ACL4SSR),Ⓜ️微软服务,no-resolve
+  - RULE-SET,微软服务,Ⓜ️微软服务,no-resolve
+  - RULE-SET,Xbox,Ⓜ️微软服务,no-resolve
+  - RULE-SET,Microsoft,Ⓜ️微软服务,no-resolve
+  - RULE-SET,✅国外常用网站合集,💱国外网站,no-resolve
+  - RULE-SET,✅国外IP,💱国外网站,no-resolve
+  - RULE-SET,✅国外网站,💱国外网站,no-resolve
+  - RULE-SET,✅国外代理,💱国外网站,no-resolve
+  - RULE-SET,✅Google,💱国外网站,no-resolve
+  - RULE-SET,✅GitHub,💱国外网站,no-resolve
+  - RULE-SET,✅Cloudflare,💱国外网站,no-resolve
+  - RULE-SET,✅Whatsapp,💱国外网站,no-resolve
+  - RULE-SET,✅维基百科,💱国外网站,no-resolve
+  - RULE-SET,✅PayPal,💱国外网站,no-resolve
+  - RULE-SET,✅Dropbox,💱国外网站,no-resolve
+  - RULE-SET,✅亚马逊,💱国外网站,no-resolve
+  - RULE-SET,✅Duckduckgo,💱国外网站,no-resolve
+  - RULE-SET,Crypto,💱国外网站,no-resolve
+  - RULE-SET,PayPal,💱国外网站,no-resolve
+  - RULE-SET,Scholar,💱国外网站,no-resolve
+  - RULE-SET,Speedtest,💱国外网站,no-resolve
+  - RULE-SET,国外常用网站合集(By lhie1),💱国外网站,no-resolve
+  - RULE-SET,PROXY,💱国外网站,no-resolve
+  - RULE-SET,必须代理,💱国外网站,no-resolve
+  - RULE-SET,✅中国电信,🎯国内流量,no-resolve
+  - RULE-SET,✅中国移动,🎯国内流量,no-resolve
+  - RULE-SET,✅中国联通,🎯国内流量,no-resolve
+  - RULE-SET,✅ChinaIPs,🎯国内流量,no-resolve
+  - RULE-SET,✅大陆IP白名单,🎯国内流量,no-resolve
+  - RULE-SET,✅国内直连,🎯国内流量,no-resolve
+  - RULE-SET,✅ASN-China,🎯国内流量,no-resolve
+  - RULE-SET,✅国内域名白名单,🎯国内流量,no-resolve
+  - RULE-SET,✅微博,🎯国内流量,no-resolve
+  - RULE-SET,✅微信,🎯国内流量,no-resolve
+  - RULE-SET,miHoYo,🎯国内流量,no-resolve
+  - RULE-SET,国内域名白名单,🎯国内流量,no-resolve
+  - RULE-SET,✅国内域名列表（含国外应用）,🎯国内流量,no-resolve
+  - RULE-SET,国内IP白名单,🎯国内流量,no-resolve
+  - RULE-SET,广东省IP列表,🎯国内流量,no-resolve
+  - RULE-SET,广东广州IP列表,🎯国内流量,no-resolve
+  - RULE-SET,广东佛山IP列表,🎯国内流量,no-resolve
+  - RULE-SET,广东深圳IP列表,🎯国内流量,no-resolve
+  - RULE-SET,广东茂名IP列表,🎯国内流量,no-resolve
+  - RULE-SET,大陆IPV6白名单,🎯国内流量,no-resolve
+  - GEOSITE,CN,🎯国内流量
+  - GEOIP,CN,🎯国内流量,no-resolve
+  - DST-PORT,80,💱国外网站
+  - DST-PORT,443,💱国外网站
+  - DST-PORT,22,💱国外网站
+  - MATCH,🌊漏网之鱼（🔄黑白名单模式） # 仅命中规则代理，其他全部直连
