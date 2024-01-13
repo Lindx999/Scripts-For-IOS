@@ -18,13 +18,13 @@ external-controller: 127.0.0.1:9090
 subscribe-url: 代理连接请填到远程代理集
 #首页按住订阅可手动更新流量信息及日期信息(自带定时更新)⚠️⚠️⚠️⚠️⚠️
 proxy-providers:
-  明月配置: #替换下面⚠️订阅链接⚠️用于Stash更新节点服务器
+  机场配置: #替换下面⚠️订阅链接⚠️用于Stash更新节点服务器
     type: http
     url: "订阅链接"
     #替换上面⚠️订阅链接⚠️用于Stash更新节点服务器
     # Sub-Store与Clash类型订阅链接替换掉引号""内的订阅链接
     interval: 86400
-    path: ./明月配置.yaml
+    path: ./proxy.yaml
     health-check:
       enable: true
       interval: 300
@@ -163,7 +163,7 @@ proxy-groups:
     interval: 300
     lazy: true
     use:
-      - 明月配置
+      - 机场配置
     tolerance: 150
   - name: "🙌手动选择（⬇️下面列表选择分流）"
     type: select
@@ -172,7 +172,7 @@ proxy-groups:
     interval: 300
     lazy: true
     use:
-      - 明月配置
+      - 机场配置
     proxies:
       - 🔝自动选择（⬅️自动手动没有规则）
       - ♻️故障转移
@@ -241,7 +241,7 @@ proxy-groups:
     interval: 300
     lazy: true
     use:
-      - 明月配置
+      - 机场配置
   - name: "📹Youtube"
     type: select
     proxies:
@@ -254,7 +254,7 @@ proxy-groups:
     interval: 300
     lazy: true
     use:
-      - 明月配置
+      - 机场配置
   - name: "🎞️奈飞"
     type: select
     proxies:
@@ -267,7 +267,7 @@ proxy-groups:
     interval: 300
     lazy: true
     use:
-      - 明月配置
+      - 机场配置
   - name: "🎞️迪士尼"
     type: select
     proxies:
@@ -280,7 +280,7 @@ proxy-groups:
     interval: 300
     lazy: true
     use:
-      - 明月配置
+      - 机场配置
   - name: "🤖OpenAI"
     type: select
     proxies:
@@ -293,7 +293,7 @@ proxy-groups:
     interval: 300
     lazy: true
     use:
-      - 明月配置
+      - 机场配置
   - interval: 300
     lazy: true
     name: 🎮游戏平台
@@ -354,7 +354,7 @@ proxy-groups:
     interval: 1800
     lazy: null
     use:
-      - 明月配置
+      - 机场配置
     hidden: true
   - name: "🇭🇰香港自动选择"
     type: url-test
@@ -364,7 +364,7 @@ proxy-groups:
     url: "https://www.gstatic.com/generate_204"
     interval: 1800
     use:
-      - 明月配置
+      - 机场配置
     hidden: true
     tolerance: 150
   - name: "🇸🇬狮城自动选择"
@@ -375,7 +375,7 @@ proxy-groups:
     url: "https://www.gstatic.com/generate_204"
     interval: 1800
     use:
-      - 明月配置
+      - 机场配置
     hidden: true
     tolerance: 150
   - name: "🇯🇵日本自动选择"
@@ -386,7 +386,7 @@ proxy-groups:
     url: "https://www.gstatic.com/generate_204"
     interval: 1800
     use:
-      - 明月配置
+      - 机场配置
     hidden: true
     tolerance: 150
   - name: "🇹🇼台湾自动选择"
@@ -397,7 +397,7 @@ proxy-groups:
     url: "https://www.gstatic.com/generate_204"
     interval: 1800
     use:
-      - 明月配置
+      - 机场配置
     hidden: true
     tolerance: 150
   - name: "🇺🇸美国自动选择"
@@ -408,7 +408,7 @@ proxy-groups:
     url: "https://www.gstatic.com/generate_204"
     interval: 1800
     use:
-      - 明月配置
+      - 机场配置
     tolerance: 150
     hidden: true
   - hidden: true
@@ -1399,7 +1399,7 @@ rule-providers:
     url: https://raw.githubusercontent.com/metowolf/iplist/master/data/cncity/440900.txt
 script:
 shortcuts:
-  # 4483 与 9305 为 BiliBili 的 QUIC CDN 
+  # 4483 与 9305 为 BiliBili 的 QUIC CDN
   quic: network == 'udp' and (dst_port == 443 or dst_port == 4483 or dst_port == 9305)
 rules:
   - DOMAIN-SUFFIX,❌❌远程规则集名称不可相同❌❌请参考左下列表❌,REJECT
