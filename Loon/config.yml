@@ -1,5 +1,6 @@
 log:
   level: info
+  file: "./mosdns.log"
 
 plugins:
   # 缓存
