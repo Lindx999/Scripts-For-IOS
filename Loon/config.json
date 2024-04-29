@@ -1,0 +1,553 @@
+{
+    "log": {
+        "level": "info",
+        "disabled": false,
+        "timestamp": true
+    },
+    "dns": {
+        "servers": [
+            {
+                "tag": "alidns",
+                "address": "h3://dns.alidns.com/dns-query",
+                "address_resolver": "dns_resolver",
+                "strategy": "prefer_ipv4",
+                "detour": "➡️直连"
+            },
+            {
+                "tag": "cloudflare",
+                "address": "https://1.1.1.1/dns-query",
+                "strategy": "prefer_ipv4",
+                "detour": "🔀代理"
+            },
+            {
+                "tag": "dns_resolver",
+                "address": "223.5.5.5",
+                "detour": "➡️直连"
+            },
+            {
+                "tag": "block",
+                "address": "rcode://success"
+            }
+        ],
+        "rules": [
+            {
+                "outbound": "any",
+                "server": "alidns"
+            },
+            {
+                "clash_mode": "direct",
+                "server": "alidns"
+            },
+            {
+                "clash_mode": "global",
+                "server": "cloudflare"
+            },
+            {
+                "rule_set": "geosite-geolocation-!cn",
+                "server": "cloudflare"
+            },
+            {
+                "rule_set": [
+                    "geosite-cn",
+                    "geosite-private"
+                ],
+                "server": "alidns"
+            }
+        ],
+        "disable_cache": false,
+        "disable_expire": false,
+        "final": "cloudflare",
+        "strategy": "prefer_ipv4"
+    },
+    //=============以下是入站。================
+    "inbounds": [
+        {
+            "tag": "tun-in",
+            "type": "tun",
+            "stack": "mixed",
+            "domain_strategy": "",
+            "udp_timeout": 300,
+            "mtu": 1480,
+            "auto_route": true,
+            "strict_route": true,
+            "endpoint_independent_nat": false,
+            "sniff": true,
+            "sniff_timeout": "300ms",
+            "inet4_address": "172.19.0.1/30",
+            "sniff_override_destination": true
+            // "platform": {
+            //     "http_proxy": {
+            //         "enabled": true,
+            //         "server": "127.0.0.1",
+            //         "server_port": 7890
+            //     }
+            // }
+        },
+        {
+            "type": "mixed",
+            "tag": "mixed-in",
+            "listen": "0.0.0.0",
+            "listen_port": 7890,
+            "tcp_fast_open": true,
+            "udp_fragment": true,
+            "sniff": true
+        }
+        // {
+        //     "type": "tproxy",
+        //     "tag": "tproxy-in",
+        //     "listen": "::",
+        //     "listen_port": 1536,
+        //     "sniff": true
+        // }
+    ],
+    //=============以下是出站。================
+    "outbounds": [
+        {
+            "tag": "➡️直连",
+            "type": "direct"
+        },
+        {
+            "tag": "block",
+            "type": "block"
+        },
+        {
+            "tag": "dns-out",
+            "type": "dns"
+        },
+        {
+            "tag": "🔀代理",
+            "type": "selector",
+            "default": "🇰🇷韩国ARM",
+            "outbounds": [
+                "🇰🇷韩国ARM",
+                "🇰🇷韩国TU",
+                "🇰🇷甲骨文VL",
+                "🇸🇬腾讯云",
+                "🏎️Auto"
+            ]
+        },
+        {
+            "tag": "🇨🇳国内",
+            "type": "selector",
+            "default": "➡️直连",
+            "outbounds": [
+                "➡️直连",
+                "🔀代理"
+            ]
+        },
+        {
+            "tag": "🏎️Auto",
+            "type": "urltest",
+            "outbounds": [
+                "🇰🇷韩国ARM",
+                "🇰🇷韩国TU",
+                "🇰🇷甲骨文VL",
+                "🇸🇬腾讯云"
+            ],
+            "interval": "3m",
+            "interrupt_exist_connections": false,
+            "url": "https://www.gstatic.com/generate_204",
+            "tolerance": 50
+        },
+        {
+            "tag": "📺️流媒体",
+            "type": "selector",
+            "outbounds": [
+                "🇰🇷韩国ARM"
+            ]
+        },
+        {
+            "tag": "🤖OpenAI",
+            "type": "selector",
+            "outbounds": [
+                "🇰🇷韩国ARM"
+            ]
+        },
+        {
+            "tag": "🚁Telegram",
+            "type": "selector",
+            "outbounds": [
+                "🇰🇷韩国ARM",
+                "🏎️Auto"
+            ]
+        },
+        {
+            "tag": "🚀网络测试",
+            "type": "selector",
+            "outbounds": [
+                "🔀代理",
+                "➡️直连"
+            ]
+        },
+        {
+            "tag": "Ⓜ️微软服务",
+            "type": "selector",
+            "outbounds": [
+                "🔀代理",
+                "➡️直连"
+            ]
+        },
+        {
+            "tag": "🍎苹果服务",
+            "type": "selector",
+            "outbounds": [
+                "🔀代理",
+                "➡️直连"
+            ]
+        },
+        {
+            "tag": "🛑广告拦截",
+            "type": "selector",
+            "outbounds": [
+                "block"
+            ]
+        },
+        {
+            "tag": "🏄🏼‍♀️UDP",
+            "type": "selector",
+            "default": "block",
+            "outbounds": [
+                "🔀代理",
+                "➡️直连",
+                "block"
+            ]
+        },
+        //=============以下是服务器出口配置。================
+        {
+            "tag": "🇰🇷韩国ARM",
+            "type": "vmess",
+            "server": "xxxxxxx",
+            "server_port": xxxxxxx,
+            "uuid": "xxxxxx-ff85-4657-9f7b-45bedfcaf008",
+            "security": "auto",
+            "alter_id": 0,
+            "network": "tcp",
+            "tls": {
+                "enabled": true,
+                "disable_sni": false,
+                "server_name": "vxxxxx",
+                "insecure": false,
+                "alpn": [
+                    "h2",
+                    "http:1.1"
+                ]
+            }
+        },
+        {
+            "tag": "🇰🇷韩国TU",
+            "type": "tuic",
+            "server": "xxxxxxx",
+            "server_port": 33521,
+            "uuid": "xxxxxx-ff85-4657-9f7b-45bedfcaf008",
+            "password": "cxxxxff85-4657-9f7b-45bedfcaf008",
+            "congestion_control": "bbr",
+            "tls": {
+                "enabled": true,
+                "server_name": "txxxxxx",
+                "alpn": [
+                    "h3"
+                ]
+            }
+        },
+        {
+            "tag": "🇰🇷甲骨文VL",
+            "type": "vless",
+            "server": "xxxxx",
+            "server_port": 19903,
+            "uuid": "xxxxxx-82dc-4d99-bdc8-f19bf4f5e024",
+            "packet_encoding": "xudp",
+            "flow": "xtls-rprx-vision",
+            "tls": {
+                "enabled": true,
+                "server_name": "www.yahoo.com",
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "chrome"
+                },
+                "reality": {
+                    "enabled": true,
+                    "public_key": "_ZTj1P-irPCQnxOM8GQJOszmNnDDkKcM6izZN6RuYkk",
+                    "short_id": "73fb9441"
+                }
+            }
+        },
+        {
+            "tag": "🇸🇬腾讯云",
+            "type": "vmess",
+            "server": "xxxxx",
+            "server_port": 443,
+            "uuid": "xxxxx-7d95-42ff-9ea2-66713a811120",
+            "security": "auto",
+            "alter_id": 0,
+            "network": "tcp",
+            "tls": {
+                "enabled": true,
+                "disable_sni": false,
+                "server_name": "vxxxxx",
+                "insecure": false,
+                "alpn": [
+                    "h2",
+                    "http:1.1"
+                ]
+            }
+        }
+    ],
+    //=============以上是服务器出口配置。================
+    "route": {
+        "final": "🔀代理",
+        "auto_detect_interface": true,
+        "rules": [
+            {
+                "protocol": "dns",
+                "outbound": "dns-out"
+            },
+            {
+                "outbound": "➡️直连",
+                "type": "logical",
+                "mode": "or",
+                "rules": [
+                    {
+                        "ip_is_private": true
+                    },
+                    {
+                        "domain_keyword": [
+                            "baidu"
+                        ]
+                    },
+                    {
+                        "domain_suffix": [
+                            "qq.com",
+                            "pc528.net",
+                            "x6d.com",
+                            "ourbits.club",
+                            "hdtime.org",
+                            "haidan.video",
+                            "icc2022.com",
+                            "hdpt.xyz",
+                            "beitai.pt"
+                        ]
+                    },
+                    {
+                        "rule_set": [
+                            "geosite-private"
+                        ]
+                    },
+                    {
+                        "clash_mode": "Direct"
+                    }
+                ]
+            },
+            {
+                "outbound": "🔀代理",
+                "type": "logical",
+                "mode": "or",
+                "rules": [
+                    {
+                        "domain": [
+                            "idev.dev",
+                            "www.idev.dev",
+                            "v2rayssr.com"
+                        ]
+                    },
+                    {
+                        "rule_set": [
+                            "geosite-tiktok",
+                            "geosite-google"
+                        ]
+                    },
+                    {
+                        "clash_mode": "Global"
+                    }
+                ]
+            },
+            {
+                "outbound": "🏎️Auto",
+                "domain": [
+                    "online.idev.dev"
+                ]
+            },
+            {
+                "outbound": "🤖OpenAI",
+                "rule_set": [
+                    "geosite-openai"
+                ]
+            },
+            {
+                "outbound": "🚁Telegram",
+                "rule_set": [
+                    "geosite-telegram"
+                ]
+            },
+            {
+                "outbound": "🇨🇳国内",
+                "domain_suffix": [
+                    ".cn"
+                ],
+                "rule_set": [
+                    "geoip-cn",
+                    "geosite-cn"
+                ]
+            },
+            {
+                "outbound": "📺️流媒体",
+                "rule_set": [
+                    "geosite-disney",
+                    "geosite-netflix"
+                ]
+            },
+            {
+                "outbound": "🚀网络测试",
+                "rule_set": "geosite-ookla-speedtest"
+            },
+            {
+                "outbound": "Ⓜ️微软服务",
+                "rule_set": "geosite-microsoft"
+            },
+            {
+                "outbound": "🍎苹果服务",
+                "rule_set": "geosite-apple"
+            },
+            {
+                "outbound": "🛑广告拦截",
+                "rule_set": [
+                    "geosite-cn@ads"
+                ]
+            },
+            {
+                "outbound": "🏄🏼‍♀️UDP",
+                "network": [
+                    "udp"
+                ]
+            },
+            {
+                "outbound": "block",
+                "rule_set": [
+                    "geosite-category-ads-all"
+                ]
+            }
+        ],
+        "rule_set": [
+            {
+                "tag": "geoip-cn",
+                "format": "binary",
+                "type": "remote",
+                "url": "https://raw.githubusercontent.com/SagerNet/sing-geoip/rule-set/geoip-cn.srs",
+                "download_detour": "🔀代理"
+            },
+            {
+                "tag": "geosite-cn",
+                "format": "binary",
+                "type": "remote",
+                "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-cn.srs",
+                "download_detour": "🔀代理"
+            },
+            {
+                "tag": "geosite-geolocation-!cn",
+                "type": "remote",
+                "format": "binary",
+                "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-geolocation-!cn.srs",
+                "download_detour": "🔀代理"
+            },
+            {
+                "tag": "geosite-private",
+                "format": "binary",
+                "type": "remote",
+                "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-private.srs",
+                "download_detour": "🔀代理"
+            },
+            {
+                "tag": "geosite-category-ads-all",
+                "format": "binary",
+                "type": "remote",
+                "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-category-ads-all.srs",
+                "download_detour": "🔀代理"
+            },
+            {
+                "tag": "geosite-disney",
+                "format": "binary",
+                "type": "remote",
+                "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-disney.srs",
+                "download_detour": "🔀代理"
+            },
+            {
+                "tag": "geosite-netflix",
+                "format": "binary",
+                "type": "remote",
+                "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-netflix.srs",
+                "download_detour": "🔀代理"
+            },
+            {
+                "tag": "geosite-telegram",
+                "format": "binary",
+                "type": "remote",
+                "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-telegram.srs",
+                "download_detour": "🔀代理"
+            },
+            {
+                "tag": "geosite-openai",
+                "format": "binary",
+                "type": "remote",
+                "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-openai.srs",
+                "download_detour": "🔀代理"
+            },
+            {
+                "tag": "geosite-tiktok",
+                "format": "binary",
+                "type": "remote",
+                "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-tiktok.srs",
+                "download_detour": "🔀代理"
+            },
+            {
+                "tag": "geosite-ookla-speedtest",
+                "format": "binary",
+                "type": "remote",
+                "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-ookla-speedtest.srs",
+                "download_detour": "🔀代理"
+            },
+            {
+                "tag": "geosite-apple",
+                "format": "binary",
+                "type": "remote",
+                "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-apple.srs",
+                "download_detour": "🔀代理"
+            },
+            {
+                "tag": "geosite-microsoft",
+                "format": "binary",
+                "type": "remote",
+                "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-microsoft.srs",
+                "download_detour": "🔀代理"
+            },
+            {
+                "tag": "geosite-google",
+                "format": "binary",
+                "type": "remote",
+                "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-google.srs",
+                "download_detour": "🔀代理"
+            },
+            {
+                "tag": "geosite-cn@ads",
+                "format": "binary",
+                "type": "remote",
+                "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-cn@ads.srs",
+                "download_detour": "🔀代理"
+            }
+        ]
+    },
+    "experimental": {
+        "clash_api": {
+            "external_controller": "0.0.0.0:9999",
+            "external_ui_download_url": "",
+            "external_ui_download_detour": "🔀代理",
+            "secret": "",
+            "default_mode": "rule",
+            "external_ui": "ui"
+        },
+        "cache_file": {
+            "path": "cache.db",
+            "cache_id": "cache_id",
+            "store_fakeip": true,
+            "enabled": true
+        }
+    }
+}
