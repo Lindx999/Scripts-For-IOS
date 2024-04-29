@@ -218,7 +218,7 @@
             "type": "vmess",
             "server": "xxxxxxx",
             "server_port": xxxxxxx,
-            "uuid": "xxxxxx-ff85-4657-9f7b-45bedfcaf008",
+            "uuid": "xxxxxx-ff85-4657-9f7b-xxxxxx",
             "security": "auto",
             "alter_id": 0,
             "network": "tcp",
